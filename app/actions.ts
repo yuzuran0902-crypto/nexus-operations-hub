@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getDb } from "@/db";
-import { actions, meetingNotes, meetings, members } from "@/db/schema";
+import { actions, meetingNotes, meetings, members, settings } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const value = (form: FormData, key: string) => String(form.get(key) ?? "").trim();
@@ -70,5 +70,11 @@ export async function addMeetingNote(form: FormData) {
     createdAt: new Date().toISOString(),
   });
   await getDb().update(members).set({ lastMeetingAt: heldAt }).where(eq(members.id, memberId));
+  revalidatePath("/");
+}
+
+export async function updateSettings(form: FormData) {
+  const staleDays = Math.min(365, Math.max(7, Number(value(form, "staleDays")) || 30));
+  await getDb().update(settings).set({ staleDays, updatedAt: new Date().toISOString() }).where(eq(settings.id, 1));
   revalidatePath("/");
 }
