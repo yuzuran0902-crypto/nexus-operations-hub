@@ -8,6 +8,20 @@
       "when": 1795054066920,
       "tag": "0000_misty_master_mold",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1795140873808,
+      "tag": "0001_eager_korvac",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795141382815,
+      "tag": "0002_gray_echo",
+      "breakpoints": true
     }
   ]
 }
