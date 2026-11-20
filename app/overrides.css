@@ -1,0 +1,58 @@
+.filter-bar.member-filter {
+  grid-template-columns: 1fr 220px auto;
+}
+
+.calendar-switch {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #e9efec;
+  border-radius: 11px;
+}
+
+.calendar-switch a {
+  padding: 9px 13px;
+  border-radius: 8px;
+  color: #61716a;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.calendar-switch a.active {
+  color: #126b5a;
+  background: white;
+  box-shadow: 0 2px 8px #1c3c3215;
+}
+
+.event.project-event {
+  color: #326ea9;
+  background: #e6eff9;
+  border-color: #4d83bc;
+}
+
+@media (max-width: 680px) {
+  .sidebar nav a:nth-child(4) {
+    display: none;
+  }
+
+  .sidebar nav a:nth-child(5) {
+    display: flex;
+  }
+
+  .filter-bar.member-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .page-intro:has(.calendar-switch) {
+    display: grid;
+  }
+
+  .calendar-switch {
+    width: 100%;
+  }
+
+  .calendar-switch a {
+    flex: 1;
+    text-align: center;
+  }
+}

@@ -13,10 +13,10 @@ export async function addMember(form: FormData) {
   await getDb().insert(members).values({
     name,
     discordId: value(form, "discordId"),
-    role: value(form, "category") || "研修生",
-    team: value(form, "category") === "準運営" ? "運営" : "研修",
+    role: "研修生",
+    team: "研修",
     owner: value(form, "owner") || "未割当",
-    category: value(form, "category") || "研修生",
+    category: "研修生",
     followStatus: value(form, "followStatus") || "定期的な1on1は不要",
     interests: value(form, "interests"),
     challenges: value(form, "challenges"),
