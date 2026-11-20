@@ -1,5 +1,8 @@
 # NEXUS Operations Hub
 
+- GitHub Pages入口: https://yuzuran0902-crypto.github.io/nexus-operations-hub/
+- 稼働中のアプリ: https://nexus-operations-hub.laborobo.chatgpt.site/
+
 学生団体NEXUSの運営メンバー向けに、メンバー、1on1、フォロー対応、企画・イベント、アクションを一元管理する内部Webアプリです。
 
 ## 技術構成
