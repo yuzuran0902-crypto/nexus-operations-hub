@@ -1,5 +1,4 @@
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export type ChatGPTUser = {
   userId: string;
@@ -40,12 +39,15 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
 }
 
 export async function requireChatGPTUser(
-  returnTo: string,
+  _returnTo: string,
 ): Promise<ChatGPTUser> {
   const user = await getChatGPTUser();
-  if (user) return user;
-
-  redirect(chatGPTSignInPath(returnTo));
+  return user ?? {
+    userId: "public-nexus-operator",
+    displayName: "準運営",
+    email: "",
+    fullName: null,
+  };
 }
 
 export function chatGPTSignInPath(returnTo: string): string {

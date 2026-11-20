@@ -4,21 +4,56 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NEXUS Operations Hub</title>
-    <meta name="description" content="NEXUS運営管理アプリを開いています。" />
-    <!-- GitHub Pages entry for the public NEXUS app -->
-    <meta http-equiv="refresh" content="0; url=https://nexus-operations-hub.laborobo.chatgpt.site/" />
-    <link rel="canonical" href="https://nexus-operations-hub.laborobo.chatgpt.site/" />
+    <meta name="description" content="NEXUS運営管理アプリのアクセス確認" />
     <style>
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f4f8f6; color: #17352d; font-family: system-ui, sans-serif; }
-      main { text-align: center; padding: 32px; }
-      a { color: #0f766e; font-weight: 700; }
+      :root { color-scheme: light; font-family: Inter, "Noto Sans JP", system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: radial-gradient(circle at top, #e1f3ec, #f5f8f6 48%, #eef3f0); color: #17352d; }
+      main { width: min(100%, 440px); padding: 34px; background: #fff; border: 1px solid #dce8e3; border-radius: 22px; box-shadow: 0 22px 70px rgba(18, 61, 49, .12); }
+      .mark { width: 52px; height: 52px; display: grid; place-items: center; margin-bottom: 22px; border-radius: 15px; background: #157564; color: #fff; font-size: 26px; font-weight: 900; }
+      h1 { margin: 0 0 8px; font-size: 25px; }
+      .lead { margin: 0 0 26px; color: #687871; line-height: 1.7; }
+      label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 750; }
+      input { width: 100%; padding: 14px 15px; border: 1px solid #cfdcd6; border-radius: 11px; font: inherit; font-size: 16px; outline: none; }
+      input:focus { border-color: #318b78; box-shadow: 0 0 0 4px #dcefe8; }
+      button { width: 100%; margin-top: 13px; padding: 14px; border: 0; border-radius: 11px; background: #157564; color: #fff; font: inherit; font-weight: 800; cursor: pointer; }
+      button:hover { background: #0f6657; }
+      .hint { margin: 18px 0 0; padding: 13px 14px; border-radius: 11px; background: #f1f6f4; color: #53665e; font-size: 13px; line-height: 1.65; }
+      .error { min-height: 24px; margin: 9px 0 0; color: #c74e35; font-size: 13px; font-weight: 700; }
+      small { display: block; margin-top: 18px; color: #84918b; line-height: 1.5; }
     </style>
   </head>
   <body>
     <main>
+      <div class="mark">N</div>
       <h1>NEXUS Operations Hub</h1>
-      <p>運営管理アプリを開いています。</p>
-      <p><a href="https://nexus-operations-hub.laborobo.chatgpt.site/">自動的に移動しない場合はこちら</a></p>
+      <p class="lead">準運営用の運営管理アプリです。合言葉をカタカナで入力してください。</p>
+      <form id="gate" novalidate>
+        <label for="password">合言葉</label>
+        <input id="password" name="password" type="text" lang="ja" inputmode="text" enterkeyhint="go" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="カタカナで入力" aria-describedby="hint error" required />
+        <button type="submit">アプリを開く</button>
+        <p id="error" class="error" role="alert" aria-live="polite"></p>
+      </form>
+      <p id="hint" class="hint"><strong>ヒント：</strong>準運営になると見ることができる動画コンテンツ名は、◯◯クラス</p>
+      <small>日本語入力・変換中はそのまま入力できます。確定後に「アプリを開く」を押してください。</small>
     </main>
+    <script>
+      const destination = "https://nexus-operations-hub.laborobo.chatgpt.site/";
+      const accepted = new Set(["コントリビューション", "コントリビューションクラス"]);
+      const normalize = (value) => value.normalize("NFKC").replace(/\s/g, "").replace(/[\u3041-\u3096]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));
+      if (sessionStorage.getItem("nexus-access") === "granted") location.replace(destination);
+      document.getElementById("gate").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const input = document.getElementById("password");
+        if (accepted.has(normalize(input.value))) {
+          sessionStorage.setItem("nexus-access", "granted");
+          location.replace(destination);
+          return;
+        }
+        document.getElementById("error").textContent = "合言葉が違います。ヒントを確認して、カタカナで入力してください。";
+        input.focus();
+        input.select();
+      });
+    </script>
   </body>
 </html>
