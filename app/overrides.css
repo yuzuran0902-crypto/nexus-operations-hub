@@ -24,6 +24,27 @@
   box-shadow: 0 2px 8px #1c3c3215;
 }
 
+.calendar-controls,
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-actions {
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.modal-actions a {
+  padding: 10px 15px;
+  border: 1px solid #cfded8;
+  border-radius: 10px;
+  color: #53665e;
+  font-size: 14px;
+  font-weight: 750;
+}
+
 .event.project-event {
   color: #326ea9;
   background: #e6eff9;
@@ -45,6 +66,11 @@
 
   .page-intro:has(.calendar-switch) {
     display: grid;
+  }
+
+  .calendar-controls {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .calendar-switch {
